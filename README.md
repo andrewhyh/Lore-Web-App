@@ -14,7 +14,7 @@ Lore is an AI-powered archiving platform that bridges the gap between rigid gene
 
 Lore utilizes a "Hybrid Revolutionary" architecture designed for speed, scalability, and AI-native capabilities.
 
-* **Frontend:** [Next.js 14](https://nextjs.org/) (App Router, Server Components)
+* **Frontend:** [Next.js 16](https://nextjs.org/) (App Router, Server Components)
 * **Language:** TypeScript
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 * **Backend & Auth:** [Supabase](https://supabase.com/)
