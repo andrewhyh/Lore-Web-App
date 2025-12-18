@@ -25,6 +25,7 @@ export default function SignupPage() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [success, setSuccess] = useState<string | null>(null)
     const router = useRouter()
     const supabase = createClient()
 
@@ -32,9 +33,11 @@ export default function SignupPage() {
         e.preventDefault()
         setIsLoading(true)
         setError(null)
+        setSuccess(null)
 
         if (password !== confirmPassword) {
             setError('Passwords do not match')
+            setIsLoading(false)
             return
         }
 
@@ -51,10 +54,10 @@ export default function SignupPage() {
                 throw error
             }
 
-            // Check for email confirmation setting? 
-            // Usually Supabase requires email confirmation by default.
-            setError('Check your email for a confirmation link.')
-            // Or if auto-confirm is on, redirect. But typically better to show message.
+            // Check the email confirmation setting.
+            // Supabase typically requires email confirmation by default.
+            setSuccess('Check your email for a confirmation link.')
+            // If auto-confirm is enabled, redirect instead; otherwise, it is usually better to show a message.
         } catch (error) {
             setError((error as Error).message)
         } finally {
@@ -117,8 +120,13 @@ export default function SignupPage() {
                             />
                         </div>
                         {error && (
-                            <div className={`text-sm font-medium ${error.includes('Check your email') ? 'text-primary' : 'text-destructive'}`}>
+                            <div className="text-sm font-medium text-destructive">
                                 {error}
+                            </div>
+                        )}
+                        {success && (
+                            <div className="text-sm font-medium text-primary">
+                                {success}
                             </div>
                         )}
                         <Button
