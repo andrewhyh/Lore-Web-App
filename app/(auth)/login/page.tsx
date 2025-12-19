@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 
@@ -25,7 +25,17 @@ export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
+    const searchParams = useSearchParams()
     const supabase = createClient()
+
+    useEffect(() => {
+        const errorParam = searchParams.get('error')
+        if (errorParam === 'authentication-failed') {
+            setError('Authentication failed. Please try again.')
+        } else if (errorParam === 'missing-auth-code') {
+            setError('Missing authentication code. Please try again.')
+        }
+    }, [searchParams])
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault()
