@@ -20,15 +20,13 @@ export async function GET(request: Request) {
             } else {
                 return NextResponse.redirect(`${origin}${next}`)
             }
-        }
-
-        // log the underlying authentication error for debugging
-        if (error) {
+        } else {
+            // log the underlying authentication error for debugging
             console.error('Failed to exchange auth code for session:', error)
-        }
 
-        // return the user to an error page with instructions
-        return NextResponse.redirect(`${origin}/login?error=authentication-failed`)
+            // return the user to an error page with instructions
+            return NextResponse.redirect(`${origin}/login?error=authentication-failed`)
+        }
     }
 
     // no authorization code was provided in the callback
