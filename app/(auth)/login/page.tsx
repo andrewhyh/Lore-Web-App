@@ -102,7 +102,7 @@ export default function LoginPage() {
                             />
                         </div>
                         {error && (
-                            <div className="text-sm text-destructive font-medium">
+                            <div className="text-sm font-medium text-destructive">
                                 {error}
                             </div>
                         )}
